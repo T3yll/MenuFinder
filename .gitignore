@@ -1,0 +1,43 @@
+# Node.js
+node_modules/
+*.log
+yarn-error.log
+npm-debug.log*
+.env
+
+# MacOS
+.DS_Store
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# Operating system files
+Thumbs.db
+*.bak
+
+# Build and dependencies
+dist/
+build/
+
+# Logs and temporary files
+*.log
+tmp/
+*.tmp
+
+# React/Next.js
+.next/
+.cache/
+
+# Java (if using Spring Boot)
+*.class
+*.war
+*.jar
+target/
+
+# Miscellaneous
+*.iml
+*.out
+*.pid
+coverage/
