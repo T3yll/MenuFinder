@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './Menus.css';
+import '../styles/pages/Menus.scss';
+// import '../styles/pages/Menus.scss';
+// import './Menus.css';
 
 // Interface pour les menus
 interface Menu {
@@ -178,7 +180,7 @@ const Menus: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [filteredMenus, setFilteredMenus] = useState<Menu[]>(sampleMenus);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   // Référence pour le slider de catégories
   const categorySliderRef = useRef<HTMLDivElement>(null);
 
@@ -186,10 +188,10 @@ const Menus: React.FC = () => {
   const scrollSlider = (direction: 'left' | 'right') => {
     if (categorySliderRef.current) {
       const scrollAmount = 300;
-      const newScrollLeft = direction === 'right' 
-        ? categorySliderRef.current.scrollLeft + scrollAmount 
+      const newScrollLeft = direction === 'right'
+        ? categorySliderRef.current.scrollLeft + scrollAmount
         : categorySliderRef.current.scrollLeft - scrollAmount;
-      
+
       categorySliderRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
@@ -200,23 +202,23 @@ const Menus: React.FC = () => {
   // Effet pour filtrer les menus
   useEffect(() => {
     let filtered = sampleMenus;
-    
+
     // Filtrer par catégorie
     if (selectedCategory !== "all") {
       filtered = filtered.filter(menu => menu.category === selectedCategory);
     }
-    
+
     // Filtrer par terme de recherche
     if (searchTerm.trim() !== "") {
       const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(menu => 
+      filtered = filtered.filter(menu =>
         menu.name.toLowerCase().includes(term) ||
         menu.restaurantName.toLowerCase().includes(term) ||
         menu.description.toLowerCase().includes(term) ||
         menu.tags.some(tag => tag.toLowerCase().includes(term))
       );
     }
-    
+
     setFilteredMenus(filtered);
   }, [selectedCategory, searchTerm]);
 
@@ -225,7 +227,7 @@ const Menus: React.FC = () => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
+
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
         stars.push(<span key={i} className="star">★</span>);
@@ -235,7 +237,7 @@ const Menus: React.FC = () => {
         stars.push(<span key={i} className="star empty">★</span>);
       }
     }
-    
+
     return stars;
   };
 
@@ -245,7 +247,7 @@ const Menus: React.FC = () => {
         <div className="hero-content">
           <h1>Découvrez nos menus</h1>
           <p>Trouvez facilement le menu idéal pour votre prochain repas</p>
-          
+
           {/* Barre de recherche */}
           <div className="search-container">
             <input
@@ -264,7 +266,7 @@ const Menus: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Slider de catégories */}
       <div className="category-slider-container">
         <div className="category-slider-wrapper">
@@ -280,8 +282,8 @@ const Menus: React.FC = () => {
               </button>
             ))}
           </div>
-          <button 
-            className="slider-arrow slider-arrow-left" 
+          <button
+            className="slider-arrow slider-arrow-left"
             onClick={() => scrollSlider('left')}
             aria-label="Voir moins de catégories"
           >
@@ -289,8 +291,8 @@ const Menus: React.FC = () => {
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
-          <button 
-            className="slider-arrow slider-arrow-right" 
+          <button
+            className="slider-arrow slider-arrow-right"
             onClick={() => scrollSlider('right')}
             aria-label="Voir plus de catégories"
           >
@@ -300,11 +302,11 @@ const Menus: React.FC = () => {
           </button>
         </div>
       </div>
-      
+
       {/* Conteneur des menus */}
       <div className="menus-container">
         <h2 className="section-title">Nos menus {selectedCategory !== "all" ? categories.find(c => c.id === selectedCategory)?.name : ""}</h2>
-        
+
         {filteredMenus.length > 0 ? (
           <div className="menus-grid">
             {filteredMenus.map(menu => (
