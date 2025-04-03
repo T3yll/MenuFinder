@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './Restaurants.css';
+// import './Restaurants.scss';
+import '../styles/pages/Restaurants.scss';
+import { useCurrency } from '../contexts/CurrencyContext';
+// import './Restaurants.css';
 
 // Types de données
 interface Restaurant {
@@ -143,8 +146,9 @@ const categories = [
 const Restaurants: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>(sampleRestaurants);
-  const [searchTerm, setSearchTerm] = useState("");
-  
+  // const [searchTerm, setSearchTerm] = useState("");
+  const { formatPrice } = useCurrency();
+
   // Référence pour le slider de catégories
   const categorySliderRef = useRef<HTMLDivElement>(null);
 
@@ -152,10 +156,10 @@ const Restaurants: React.FC = () => {
   const scrollSlider = (direction: 'left' | 'right') => {
     if (categorySliderRef.current) {
       const scrollAmount = 300;
-      const newScrollLeft = direction === 'right' 
-        ? categorySliderRef.current.scrollLeft + scrollAmount 
+      const newScrollLeft = direction === 'right'
+        ? categorySliderRef.current.scrollLeft + scrollAmount
         : categorySliderRef.current.scrollLeft - scrollAmount;
-      
+
       categorySliderRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
@@ -166,53 +170,53 @@ const Restaurants: React.FC = () => {
   // Effet pour filtrer les restaurants
   useEffect(() => {
     let filtered = sampleRestaurants;
-    
+
     // Filtrer par catégorie
     if (selectedCategory !== "all") {
       filtered = filtered.filter(restaurant => restaurant.category === selectedCategory);
     }
-    
+
     // Filtrer par recherche
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(restaurant => 
-        restaurant.name.toLowerCase().includes(term) || 
-        restaurant.address.toLowerCase().includes(term) || 
-        restaurant.specialties.some(specialty => specialty.toLowerCase().includes(term))
-      );
-    }
-    
+    // if (searchTerm) {
+    //   const term = searchTerm.toLowerCase();
+    //   filtered = filtered.filter(restaurant => 
+    //     restaurant.name.toLowerCase().includes(term) || 
+    //     restaurant.address.toLowerCase().includes(term) || 
+    //     restaurant.specialties.some(specialty => specialty.toLowerCase().includes(term))
+    //   );
+    // }
+
     setFilteredRestaurants(filtered);
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory]); //[selectedCategory, searchTerm]
 
   // Afficher les étoiles de notation
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
+
     let stars = [];
-    
+
     // Étoiles pleines
     for (let i = 0; i < fullStars; i++) {
       stars.push(<span key={`full-${i}`} className="star full">★</span>);
     }
-    
+
     // Demi-étoile si nécessaire
     if (hasHalfStar) {
       stars.push(<span key="half" className="star half">★</span>);
     }
-    
+
     // Étoiles vides
     const emptyStarsCount = 5 - stars.length;
     for (let i = 0; i < emptyStarsCount; i++) {
       stars.push(<span key={`empty-${i}`} className="star empty">☆</span>);
     }
-    
+
     return stars;
   };
 
   return (
-    <div className="restaurants-page">      
+    <div className="restaurants-page">
       {/* Slider de catégories */}
       <div className="category-slider-container">
         <div className="category-slider-wrapper">
@@ -228,8 +232,8 @@ const Restaurants: React.FC = () => {
               </button>
             ))}
           </div>
-          <button 
-            className="slider-arrow slider-arrow-left" 
+          <button
+            className="slider-arrow slider-arrow-left"
             onClick={() => scrollSlider('left')}
             aria-label="Voir moins de catégories"
           >
@@ -237,8 +241,8 @@ const Restaurants: React.FC = () => {
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
-          <button 
-            className="slider-arrow slider-arrow-right" 
+          <button
+            className="slider-arrow slider-arrow-right"
             onClick={() => scrollSlider('right')}
             aria-label="Voir plus de catégories"
           >
@@ -248,7 +252,7 @@ const Restaurants: React.FC = () => {
           </button>
         </div>
       </div>
-      
+
       {/* Liste des restaurants */}
       <div className="restaurants-container">
         <div className="restaurants-grid">
@@ -256,19 +260,20 @@ const Restaurants: React.FC = () => {
             filteredRestaurants.map(restaurant => (
               <div key={restaurant.id} className="restaurant-card">
                 <div className="restaurant-image" style={{ backgroundImage: `url(${restaurant.imageUrl})` }}>
+                  <div className="restaurant-image-overlay"></div>
                   <div className="price-tag">{restaurant.priceRange}</div>
                 </div>
-                
+
                 <div className="restaurant-content">
                   <h3 className="restaurant-name">{restaurant.name}</h3>
-                  
+
                   <div className="restaurant-category">{categories.find(c => c.id === restaurant.category)?.name}</div>
-                  
+
                   <div className="restaurant-rating">
                     <div className="stars">{renderStars(restaurant.rating)}</div>
                     <span className="reviews-count">({restaurant.reviewCount})</span>
                   </div>
-                  
+
                   <div className="restaurant-address">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -276,7 +281,7 @@ const Restaurants: React.FC = () => {
                     </svg>
                     {restaurant.address}
                   </div>
-                  
+
                   <div className="restaurant-hours">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="10"></circle>
@@ -284,11 +289,11 @@ const Restaurants: React.FC = () => {
                     </svg>
                     {restaurant.openingHours}
                   </div>
-                  
+
                   <div className="restaurant-specialties">
                     <strong>Spécialités:</strong> {restaurant.specialties.join(", ")}
                   </div>
-                  
+
                   <div className="restaurant-actions">
                     <Link to={`/restaurants/${restaurant.id}`} className="view-menu-button">
                       Voir le menu

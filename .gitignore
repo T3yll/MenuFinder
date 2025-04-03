@@ -41,3 +41,17 @@ target/
 *.out
 *.pid
 coverage/
+
+
+#front-end
+
+# dependencies
+front-end/node_modules
+front-end/.pnp
+front-end/.pnp.js
+
+front-end/npm-debug.log*
+front-end/yarn-debug.log*
+front-end/yarn-error.log*
+
+front-end/package-lock.json
