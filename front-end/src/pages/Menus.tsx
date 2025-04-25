@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pages/Menus.scss';
-// import '../styles/pages/Menus.scss';
-// import './Menus.css';
+import SearchBar from '../components/commom/SearchBar';
+import SliderFilter from '../components/commom/SliderFilter';
 
 // Interface pour les menus
 interface Menu {
@@ -181,24 +181,6 @@ const Menus: React.FC = () => {
   const [filteredMenus, setFilteredMenus] = useState<Menu[]>(sampleMenus);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Référence pour le slider de catégories
-  const categorySliderRef = useRef<HTMLDivElement>(null);
-
-  // Fonction pour faire défiler le slider
-  const scrollSlider = (direction: 'left' | 'right') => {
-    if (categorySliderRef.current) {
-      const scrollAmount = 300;
-      const newScrollLeft = direction === 'right'
-        ? categorySliderRef.current.scrollLeft + scrollAmount
-        : categorySliderRef.current.scrollLeft - scrollAmount;
-
-      categorySliderRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   // Effet pour filtrer les menus
   useEffect(() => {
     let filtered = sampleMenus;
@@ -248,60 +230,12 @@ const Menus: React.FC = () => {
           <h1>Découvrez nos menus</h1>
           <p>Trouvez facilement le menu idéal pour votre prochain repas</p>
 
-          {/* Barre de recherche */}
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Rechercher un menu, un restaurant, un type de cuisine..."
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="search-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-          </div>
+          {SearchBar(searchTerm, setSearchTerm)}
         </div>
       </div>
 
       {/* Slider de catégories */}
-      <div className="category-slider-container">
-        <div className="category-slider-wrapper">
-          <div className="category-slider" ref={categorySliderRef}>
-            {categories.map(category => (
-              <button
-                key={category.id}
-                className={`category-button ${selectedCategory === category.id ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(category.id)}
-              >
-                <span className="category-emoji">{category.emoji}</span>
-                {category.name}
-              </button>
-            ))}
-          </div>
-          <button
-            className="slider-arrow slider-arrow-left"
-            onClick={() => scrollSlider('left')}
-            aria-label="Voir moins de catégories"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button
-            className="slider-arrow slider-arrow-right"
-            onClick={() => scrollSlider('right')}
-            aria-label="Voir plus de catégories"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-      </div>
+      {SliderFilter(categories, setSelectedCategory)}
 
       {/* Conteneur des menus */}
       <div className="menus-container">

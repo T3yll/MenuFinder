@@ -171,41 +171,9 @@
 }
 
 // Carte de restaurant
-.restaurant-card {
-  background-color: white;
-  border-radius: $border-radius-lg;
-  overflow: hidden;
-  @include shadow(2);
-  @include transition;
-  border: 1px solid #f0f0f0;
 
-  &:hover {
-    transform: translateY(-4px);
-    @include shadow(3);
 
-    .restaurant-image {
-      transform: scale(1.05);
-    }
-  }
-}
 
-.restaurant-image {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  transition: transform 0.5s ease;
-
-  &-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, transparent 60%, rgba($color-dark, 0.5));
-  }
-}
 
 .price-tag {
   position: absolute;
@@ -408,6 +376,54 @@
       &:hover {
         border-color: rgba($color-dark, 0.1);
         color: $color-dark;
+      }
+    }
+  }
+}
+
+.restaurants-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 50px auto;
+  padding: 0 1rem;
+
+  .restaurant-card {
+    background-color: white;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    @include shadow(2);
+    @include transition;
+    border: 1px solid #f0f0f0;
+
+    &:hover {
+      transform: translateY(-4px);
+      @include shadow(3);
+
+      .restaurant-image {
+        width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        transition: transform 0.5s ease;
+        transform: scale(1.05);
+        transition: all 500ms ease;
+
+
+
+        &-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to bottom, transparent 60%, rgba($color-dark, 0.5));
+        }
       }
     }
   }

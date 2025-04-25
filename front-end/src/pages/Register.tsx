@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pages/Register.scss';
 import { log } from 'console';
-import { registerUser } from '../services/userService';
+import { registerUser } from '../services/user.service';
 // import './Register.css';
 
 const Register: React.FC = () => {

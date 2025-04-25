@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 // import './Restaurants.scss';
 import '../styles/pages/Restaurants.scss';
 import { useCurrency } from '../contexts/CurrencyContext';
+import SliderFilter from '../components/commom/SliderFilter';
 // import './Restaurants.css';
 
 // Types de données
@@ -149,23 +150,6 @@ const Restaurants: React.FC = () => {
   // const [searchTerm, setSearchTerm] = useState("");
   const { formatPrice } = useCurrency();
 
-  // Référence pour le slider de catégories
-  const categorySliderRef = useRef<HTMLDivElement>(null);
-
-  // Fonction pour faire défiler le slider
-  const scrollSlider = (direction: 'left' | 'right') => {
-    if (categorySliderRef.current) {
-      const scrollAmount = 300;
-      const newScrollLeft = direction === 'right'
-        ? categorySliderRef.current.scrollLeft + scrollAmount
-        : categorySliderRef.current.scrollLeft - scrollAmount;
-
-      categorySliderRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   // Effet pour filtrer les restaurants
   useEffect(() => {
@@ -218,41 +202,7 @@ const Restaurants: React.FC = () => {
   return (
     <div className="restaurants-page">
       {/* Slider de catégories */}
-      <div className="category-slider-container">
-        <div className="category-slider-wrapper">
-          <div className="category-slider" ref={categorySliderRef}>
-            {categories.map(category => (
-              <button
-                key={category.id}
-                className={`category-button ${selectedCategory === category.id ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(category.id)}
-              >
-                <span className="category-emoji">{category.emoji}</span>
-                {category.name}
-              </button>
-            ))}
-          </div>
-          <button
-            className="slider-arrow slider-arrow-left"
-            onClick={() => scrollSlider('left')}
-            aria-label="Voir moins de catégories"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button
-            className="slider-arrow slider-arrow-right"
-            onClick={() => scrollSlider('right')}
-            aria-label="Voir plus de catégories"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-      </div>
-
+      {SliderFilter(categories, setSelectedCategory)}
       {/* Liste des restaurants */}
       <div className="restaurants-container">
         <div className="restaurants-grid">
