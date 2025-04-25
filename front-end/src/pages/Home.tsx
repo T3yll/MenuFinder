@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pages/Home.scss';
+import SearchBar from '../components/commom/SearchBar';
 // import '../styles/pages/Home.scss';
 
 interface Restaurant {
@@ -196,19 +197,8 @@ const Home: React.FC = () => {
                     <p className="hero-subtitle">Trouvez facilement les menus et
                         restaurants qui vous correspondent selon vos envies et
                         votre emplacement.</p>
-                    <form className="search-form" onSubmit={handleSearch}
-                        style={{ width: '100%' }}>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Rechercher un restaurant, un plat, une cuisine..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                        <button type="submit" className="search-button">
-                            <span role="img" aria-label="search">🔍</span>
-                        </button>
-                    </form>
+                    <p>test</p>
+                    {SearchBar(searchQuery, setSearchQuery)}
                 </div>
             </section>
 
