@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Restaurants from './pages/Restaurants';
 import Menus from './pages/Menus';
 import NavBar from "./components/NavBar";
+import Map from './pages/Map';
 import { CurrencyProvider } from './contexts/CurrencyContext';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/restaurants" element={<><NavBar /><Restaurants /></>} />
             <Route path="/menus" element={<><NavBar /><Menus /></>} />
+            <Route path="/map" element={<><NavBar /><Map/></>} />
           </Routes>
         </div>
       </Router>

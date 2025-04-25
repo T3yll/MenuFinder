@@ -5,6 +5,7 @@ interface GeolocationState {
   longitude: number | null;
   error: string | null;
   loading: boolean;
+
 }
 
 export const useGeolocation = () => {
@@ -12,7 +13,7 @@ export const useGeolocation = () => {
     latitude: null,
     longitude: null,
     error: null,
-    loading: true
+    loading: true,
   });
 
   useEffect(() => {

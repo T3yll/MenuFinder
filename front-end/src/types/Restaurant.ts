@@ -1,12 +1,15 @@
 export interface Restaurant {
-  id: string;
+  id: number;
   name: string;
   address: string;
-  cuisine: string;
+  cuisine?: string;
   rating: number;
   distance?: number; // Distance par rapport à l'utilisateur
   imageUrl?: string;
   openingHours?: string;
+  category?: string;
+  reviewCount?: number;
+  specialties?: string[];
   priceRange?: string;
   coordinates?: {
     latitude: number;
