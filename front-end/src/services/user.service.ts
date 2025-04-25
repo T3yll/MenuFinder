@@ -1,9 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { User } from "../types/User";
 
-const dotenv = require('dotenv');
-dotenv.config();
-
 export const registerUser = async (user: User) => {
     console.log('registerUser');
 

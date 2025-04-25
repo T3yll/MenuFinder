@@ -23,6 +23,9 @@ const NavBar = () => {
                     <Link to="/menus" className="text-gray-700 hover:text-gray-900">
                         Menus
                     </Link>
+                    <Link to="/map" className="text-gray-700 hover:text-gray-900">
+                        Carte
+                    </Link>
                 </div>
             </div>
             <div className="flex items-center space-x-4">
