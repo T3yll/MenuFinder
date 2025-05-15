@@ -21,8 +21,7 @@ const Login: React.FC = () => {
       // Ici vous ajouteriez la logique de connexion avec une API
       console.log('Connexion avec:', { email, password, rememberMe });
 
-      // Simuler un délai de connexion
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      
 
       // Redirection après connexion réussie (à implémenter)
     } catch (err) {
